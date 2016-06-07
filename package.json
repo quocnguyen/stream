@@ -1,0 +1,24 @@
+{
+  "name": "stream",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "consolidate": "0.14.1",
+    "dotenv": "2.0.0",
+    "finalhandler": "0.4.1",
+    "level": "1.4.0",
+    "mustache": "2.2.1",
+    "router": "1.1.4",
+    "shortid": "2.2.6",
+    "sublevel": "2.4.0",
+    "ytdl-core": "0.7.16"
+  }
+}
