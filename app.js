@@ -6,11 +6,11 @@ const Router = require('router');
 const finalhandler = require('finalhandler');
 const path = require('path');
 const qs = require('querystring');
+const url = require('url');
 const ytdl = require('ytdl-core');
 const v = require('consolidate');
 const db = require('./lib/db');
 const shortid = require('shortid');
-const url = require('url');
 require('dotenv').config({silent: true});
 
 const app = new Router();
@@ -44,6 +44,15 @@ app.use((req, res, next) => {
     next();
   });
 });
+
+app.get('/play', (req, res) => {
+  let query = qs.parse(url.parse(req.url).query);
+
+res.render('play.html', {
+    url: query.url
+  });
+});
+
 app.get('/:id', (req, res) => {
   db.get(req.params.id, (err, data) => {
     if (err) { return res.end(err.toString()); }
@@ -80,6 +89,10 @@ app.get('/:id', (req, res) => {
       res.setHeader('Content-Range', `bytes ${start}-${end}/${start+total}`);
       res.setHeader('Content-Length', total);
 
+    });
+    s.on('error', err => {
+      res.statusCode = 404;
+      res.end(err.toString());
     });
     s.pipe(res);
   });
